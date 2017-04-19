@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="src" path="src"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.8"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.junit.JUNIT_CONTAINER/4"/>
+	<classpathentry kind="src" path="unitTests"/>
+	<classpathentry kind="lib" path="jpaLib/antlr-2.7.7.jar"/>
+	<classpathentry kind="lib" path="jpaLib/cdi-api-1.1.jar"/>
+	<classpathentry kind="lib" path="jpaLib/classmate-1.3.0.jar"/>
+	<classpathentry kind="lib" path="jpaLib/dom4j-1.6.1.jar"/>
+	<classpathentry kind="lib" path="jpaLib/el-api-2.2.jar"/>
+	<classpathentry kind="lib" path="jpaLib/geronimo-jta_1.1_spec-1.1.1.jar"/>
+	<classpathentry kind="lib" path="jpaLib/hibernate-commons-annotations-5.0.1.Final.jar"/>
+	<classpathentry kind="lib" path="jpaLib/hibernate-core-5.2.3.Final.jar"/>
+	<classpathentry kind="lib" path="jpaLib/hibernate-jpa-2.1-api-1.0.0.Final.jar"/>
+	<classpathentry kind="lib" path="jpaLib/jandex-2.0.0.Final.jar"/>
+	<classpathentry kind="lib" path="jpaLib/javassist-3.20.0-GA.jar"/>
+	<classpathentry kind="lib" path="jpaLib/javax.inject-1.jar"/>
+	<classpathentry kind="lib" path="jpaLib/jboss-interceptors-api_1.1_spec-1.0.0.Beta1.jar"/>
+	<classpathentry kind="lib" path="jpaLib/jboss-logging-3.3.0.Final.jar"/>
+	<classpathentry kind="lib" path="jpaLib/jsr250-api-1.0.jar"/>
+	<classpathentry kind="lib" path="jpaLib/mysql-connector-java-5.1.33-bin.jar"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/hibernateProjectForStudent"/>
+	<classpathentry kind="output" path="bin"/>
+</classpath>
