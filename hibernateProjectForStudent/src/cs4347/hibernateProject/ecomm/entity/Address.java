@@ -1,5 +1,9 @@
 package cs4347.hibernateProject.ecomm.entity;
 
+import javax.persistence.*;
+
+@Entity
+@Table(name = "Address")
 public class Address 
 {
 	private Long id;
@@ -8,7 +12,9 @@ public class Address
 	private String city;
 	private String state;
 	private String zipcode;
-
+	
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	public Long getId()
 	{
 		return id;
