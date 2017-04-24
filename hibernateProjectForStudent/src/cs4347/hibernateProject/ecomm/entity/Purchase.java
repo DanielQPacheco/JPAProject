@@ -9,7 +9,10 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
+
+import org.hibernate.annotations.CascadeType;
 
 @Entity
 @Table(name = "Purchase")
@@ -64,7 +67,7 @@ public class Purchase
 		this.customer = customer;
 	}
 
-	@OneToMany(fetch=FetchType.EAGER)
+	@OneToOne(fetch=FetchType.EAGER)
 	public Product getProduct()
 	{
 		return product;

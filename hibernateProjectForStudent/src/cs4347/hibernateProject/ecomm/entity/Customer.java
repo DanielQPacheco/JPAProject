@@ -87,7 +87,7 @@ public class Customer
 		this.email = email;
 	}
 
-	@OneToOne(fetch=FetchType.EAGER, cascade=CascadeType.ALL, mappedBy="Customer")
+	@OneToOne(fetch=FetchType.EAGER, cascade=CascadeType.ALL)
 	public Address getAddress()
 	{
 		return address;
@@ -98,7 +98,7 @@ public class Customer
 		this.address = address;
 	}
 
-	@OneToOne(fetch=FetchType.EAGER, cascade=CascadeType.ALL, mappedBy="Customer")
+	@OneToOne(fetch=FetchType.EAGER, cascade=CascadeType.ALL)
 	public CreditCard getCreditCard()
 	{
 		return creditCard;
