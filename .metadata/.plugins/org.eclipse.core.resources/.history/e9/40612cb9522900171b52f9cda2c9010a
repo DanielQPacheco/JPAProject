@@ -87,17 +87,7 @@ public class PurchasePersistenceServiceImpl implements PurchasePersistenceServic
 	@Override
 	public PurchaseSummary retrievePurchaseSummary(Long customerID) throws SQLException, DAOException
 	{
-		em.getTransaction().begin();
-		PurchaseSummary ps = (PurchaseSummary)em.createQuery("from Purchase as p where p.customer.id = :customerID")
-			.setParameter("customerID", customerID)
-			.getSingleResult();
-		em.getTransaction().commit();
-		
-		if(ps == null) {
-			throw new DAOException("Purchase by Customer " + customerID + " not found.");
-		}
-		
-		return ps;
+		return null;
 	}
 
 	@Override
