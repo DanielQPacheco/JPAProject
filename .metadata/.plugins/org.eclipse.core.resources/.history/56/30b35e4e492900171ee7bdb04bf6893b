@@ -7,6 +7,7 @@ import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
+import basicJPA.entity.Employee;
 import cs4347.hibernateProject.ecomm.entity.Customer;
 import cs4347.hibernateProject.ecomm.services.CustomerPersistenceService;
 import cs4347.hibernateProject.ecomm.util.DAOException;
@@ -50,50 +51,22 @@ public class CustomerPersistenceServiceImpl implements CustomerPersistenceServic
 	@Override
 	public void update(Customer c1) throws SQLException, DAOException
 	{
-		try {
-			em.getTransaction().begin();
-			Customer c2 = em.find(Customer.class, c1.getId());
-			c2.setFirstName(c1.getFirstName());
-			c2.setLastName(c1.getLastName());
-			c2.setGender(c1.getGender());
-			c2.setDob(c1.getDob());
-			c2.setEmail(c1.getEmail());
-			c2.setAddress(c1.getAddress());
-			c2.setCreditCard(c1.getCreditCard());
-			em.getTransaction().commit();
-		}
-		catch (Exception ex) {
-			em.getTransaction().rollback();
-			throw ex;
-		}
 	}
 
 	@Override
 	public void delete(Long id) throws SQLException, DAOException
 	{
-
 	}
 
 	@Override
 	public List<Customer> retrieveByZipCode(String zipCode) throws SQLException, DAOException
 	{
-		em.getTransaction().begin();
-		List<Customer> custs = (List<Customer>)em.createQuery("from Customer as c where c.zipCode = :zipCode")
-				.setParameter("zipCode", zipCode)
-				.getResultList();
-		em.getTransaction().commit();
-		return custs;
+		return null;
 	}
 
 	@Override
 	public List<Customer> retrieveByDOB(Date startDate, Date endDate) throws SQLException, DAOException
 	{
-		em.getTransaction().begin();
-		List<Customer> custs = (List<Customer>)em.createQuery("from Customer as c where c.dob BETWEEN :startDart and :endDate")
-				.setParameter("startDate", startDate)
-				.setParameter("endDate", endDate)
-				.getResultList();
-		em.getTransaction().commit();
-		return custs;
+		return null;
 	}
 }

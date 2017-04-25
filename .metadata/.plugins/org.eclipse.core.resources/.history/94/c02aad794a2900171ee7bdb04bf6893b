@@ -71,29 +71,17 @@ public class CustomerPersistenceServiceImpl implements CustomerPersistenceServic
 	@Override
 	public void delete(Long id) throws SQLException, DAOException
 	{
-
 	}
 
 	@Override
 	public List<Customer> retrieveByZipCode(String zipCode) throws SQLException, DAOException
 	{
-		em.getTransaction().begin();
-		List<Customer> custs = (List<Customer>)em.createQuery("from Customer as c where c.zipCode = :zipCode")
-				.setParameter("zipCode", zipCode)
-				.getResultList();
-		em.getTransaction().commit();
-		return custs;
+		return null;
 	}
 
 	@Override
 	public List<Customer> retrieveByDOB(Date startDate, Date endDate) throws SQLException, DAOException
 	{
-		em.getTransaction().begin();
-		List<Customer> custs = (List<Customer>)em.createQuery("from Customer as c where c.dob BETWEEN :startDart and :endDate")
-				.setParameter("startDate", startDate)
-				.setParameter("endDate", endDate)
-				.getResultList();
-		em.getTransaction().commit();
-		return custs;
+		return null;
 	}
 }
