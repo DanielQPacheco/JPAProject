@@ -7,7 +7,9 @@ import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
+import cs4347.hibernateProject.ecomm.entity.Address;
 import cs4347.hibernateProject.ecomm.entity.Customer;
+import cs4347.hibernateProject.ecomm.entity.Product;
 import cs4347.hibernateProject.ecomm.services.CustomerPersistenceService;
 import cs4347.hibernateProject.ecomm.util.DAOException;
 
@@ -71,15 +73,27 @@ public class CustomerPersistenceServiceImpl implements CustomerPersistenceServic
 	@Override
 	public void delete(Long id) throws SQLException, DAOException
 	{
-
+		em.getTransaction().begin();
+		Customer cust = (Customer)em.createQuery("from Customer as c where c.id = :id")
+				.setParameter("id", id)
+				.getSingleResult();
+		
+		if(cust == null) {
+			em.getTransaction().rollback();
+			throw new DAOException("Product Name Not Found " + id);
+		}
+		
+		em.remove(cust);
+		em.getTransaction().commit();
 	}
 
 	@Override
 	public List<Customer> retrieveByZipCode(String zipCode) throws SQLException, DAOException
 	{
 		em.getTransaction().begin();
-		List<Customer> custs = (List<Customer>)em.createQuery("from Customer as c where c.zipCode = :zipCode")
-				.setParameter("zipCode", zipCode)
+		Address tmpaddress;
+		List<Customer> custs = (List<Customer>)em.createQuery("from Customer as a where a.address.zipcode = :zipcode")
+				.setParameter("zipcode", zipCode)
 				.getResultList();
 		em.getTransaction().commit();
 		return custs;
