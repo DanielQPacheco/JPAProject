@@ -37,17 +37,17 @@ public class ProductPersistenceServiceImpl implements ProductPersistenceService
 	@Override
 	public Product retrieve(Long id) throws SQLException, DAOException
 	{
+		try{
 		em.getTransaction().begin();
 		Product prod = (Product)em.createQuery("from Product as p where p.id = :id")
 				.setParameter("id", id)
 				.getSingleResult();
-		em.getTransaction().commit();
-		
-		if(prod == null) {
-			throw new DAOException("Product Name Not Found " + id);
+		em.getTransaction().commit();return prod;
+		}catch(Exception ex){
+			return null;
 		}
 		
-		return prod;
+		
 		
 	}
 
