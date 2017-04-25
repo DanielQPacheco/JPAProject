@@ -89,7 +89,7 @@ public class CustomerPersistenceServiceImpl implements CustomerPersistenceServic
 	public List<Customer> retrieveByDOB(Date startDate, Date endDate) throws SQLException, DAOException
 	{
 		em.getTransaction().begin();
-		List<Customer> custs = (List<Customer>)em.createQuery("from Customer as c where c.dob BETWEEN :startDate and :endDate")
+		List<Customer> custs = (List<Customer>)em.createQuery("from Customer as c where c.dob BETWEEN :startDart and :endDate")
 				.setParameter("startDate", startDate)
 				.setParameter("endDate", endDate)
 				.getResultList();

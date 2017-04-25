@@ -72,7 +72,7 @@ public class PurchasePersistenceServiceImpl implements PurchasePersistenceServic
 	public List<Purchase> retrieveForCustomerID(Long customerID) throws SQLException, DAOException
 	{
 		em.getTransaction().begin();
-		List<Purchase> purc = (List<Purchase>)em.createQuery("from Purchase as p where p.customer.id = :customerID")
+		List<Purchase> purc = (List<Purchase>)em.createQuery("from Purchase as p where p.customerId.id = :customerID")
 			.setParameter("customerID", customerID)
 			.getSingleResult();
 		em.getTransaction().commit();
@@ -93,16 +93,6 @@ public class PurchasePersistenceServiceImpl implements PurchasePersistenceServic
 	@Override
 	public List<Purchase> retrieveForProductID(Long productID) throws SQLException, DAOException
 	{
-		em.getTransaction().begin();
-		List<Purchase> purc = (List<Purchase>)em.createQuery("from Purchase as p where p.product.id = :productID")
-			.setParameter("productID", productID)
-			.getSingleResult();
-		em.getTransaction().commit();
-		
-		if(purc == null) {
-			throw new DAOException("Purchase with productID " + productID + " not found.");
-		}
-		
-		return purc;
+		return null;
 	}
 }

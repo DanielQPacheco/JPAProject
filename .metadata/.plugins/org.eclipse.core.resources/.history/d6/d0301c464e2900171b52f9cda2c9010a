@@ -30,6 +30,8 @@ public class ProductPersistenceServiceImpl implements ProductPersistenceService
 			em.getTransaction().rollback();
 			throw ex; 
 		}
+		
+		
 	}
 
 	@Override
@@ -44,6 +46,9 @@ public class ProductPersistenceServiceImpl implements ProductPersistenceService
 		}catch(Exception ex){
 			return null;
 		}
+		
+		
+		
 	}
 
 	@Override
@@ -99,6 +104,7 @@ public class ProductPersistenceServiceImpl implements ProductPersistenceService
 	@Override
 	public List<Product> retrieveByCategory(int category) throws SQLException, DAOException
 	{
+		
 		em.getTransaction().begin();
 		
 		List<Product> prod = (List<Product>)em.createQuery("from Product as p where p.prodCategory = :prodCategory")
@@ -111,6 +117,7 @@ public class ProductPersistenceServiceImpl implements ProductPersistenceService
 		}
 		
 		return prod;
+		
 	}
 
 }
