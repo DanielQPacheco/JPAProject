@@ -6,8 +6,7 @@ import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
-//import basicJPA.entity.Department;
-//import basicJPA.entity.Department;
+
 import cs4347.hibernateProject.ecomm.entity.Product;
 import cs4347.hibernateProject.ecomm.services.ProductPersistenceService;
 import cs4347.hibernateProject.ecomm.util.DAOException;
@@ -81,7 +80,7 @@ public class ProductPersistenceServiceImpl implements ProductPersistenceService
 			throw new DAOException("Product Name Not Found " + id);
 		}
 		
-		
+		em.remove(prod);
 		em.getTransaction().commit();
 	}
 	
@@ -89,13 +88,36 @@ public class ProductPersistenceServiceImpl implements ProductPersistenceService
 	@Override
 	public Product retrieveByUPC(String upc) throws SQLException, DAOException
 	{
-		return null;
+		em.getTransaction().begin();
+		Product prod = (Product)em.createQuery("from Product as p where p.prodUPC = :prodUPC")
+				.setParameter("prodUPC", upc)
+				.getSingleResult();
+		em.getTransaction().commit();
+		
+		if(prod == null) {
+			throw new DAOException("Product upc Not Found " + upc);
+		}
+		
+		return prod;
 	}
 
 	@Override
 	public List<Product> retrieveByCategory(int category) throws SQLException, DAOException
 	{
-		return null;
+		
+		em.getTransaction().begin();
+		
+		List<Product> prod = (List<Product>)em.createQuery("from Product as p where p.prodCategory = :prodCategory")
+				.setParameter("prodCategory", category)
+				.getResultList();
+		em.getTransaction().commit();
+		
+		if(prod == null) {
+			throw new DAOException("Product category Not Found " + category);
+		}
+		
+		return prod;
+		
 	}
 
 }
