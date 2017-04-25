@@ -6,6 +6,7 @@ import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
+import cs4347.hibernateProject.ecomm.entity.Product;
 import cs4347.hibernateProject.ecomm.entity.Purchase;
 import cs4347.hibernateProject.ecomm.services.PurchasePersistenceService;
 import cs4347.hibernateProject.ecomm.services.PurchaseSummary;
@@ -66,6 +67,18 @@ public class PurchasePersistenceServiceImpl implements PurchasePersistenceServic
 	@Override
 	public void delete(Long id) throws SQLException, DAOException
 	{
+		em.getTransaction().begin();
+		Purchase purc = (Purchase)em.createQuery("from Purchase as p where p.id = :id")
+				.setParameter("id", id)
+				.getSingleResult();
+		
+		if(purc == null) {
+			em.getTransaction().rollback();
+			throw new DAOException("Purchase Not Found " + id);
+		}
+		
+		em.remove(purc);
+		em.getTransaction().commit();
 	}
 
 	@Override
@@ -74,7 +87,7 @@ public class PurchasePersistenceServiceImpl implements PurchasePersistenceServic
 		em.getTransaction().begin();
 		List<Purchase> purc = (List<Purchase>)em.createQuery("from Purchase as p where p.customer.id = :customerID")
 			.setParameter("customerID", customerID)
-			.getSingleResult();
+			.getResultList();
 		em.getTransaction().commit();
 		
 		if(purc == null) {
@@ -87,17 +100,37 @@ public class PurchasePersistenceServiceImpl implements PurchasePersistenceServic
 	@Override
 	public PurchaseSummary retrievePurchaseSummary(Long customerID) throws SQLException, DAOException
 	{
+		double min=-1;
+		double max=-1;
+		double avg=-1;
 		em.getTransaction().begin();
-		PurchaseSummary ps = (PurchaseSummary)em.createQuery("from Purchase as p where p.customer.id = :customerID")
-			.setParameter("customerID", customerID)
-			.getSingleResult();
+		List<Purchase> ps = (List<Purchase>)em.createQuery("from Purchase as p where p.customer.id = :customerID")
+		.setParameter("customerID", customerID)
+		.getResultList();
 		em.getTransaction().commit();
-		
+
 		if(ps == null) {
-			throw new DAOException("Purchase by Customer " + customerID + " not found.");
+		throw new DAOException("Purchase by Customer " + customerID + " not found.");
 		}
-		
-		return ps;
+		else{
+		min = ps.get(0).getPurchaseAmount();
+		max = ps.get(0).getPurchaseAmount();
+		avg = 0;
+		double sum = 0;
+		for(int i = 0; i < ps.size(); i++){
+		if(ps.get(i).getPurchaseAmount() < min)
+		min = ps.get(1).getPurchaseAmount();
+		if(ps.get(i).getPurchaseAmount() > max)
+		max = ps.get(1).getPurchaseAmount();
+		sum+=ps.get(i).getPurchaseAmount();
+		}
+		avg = sum/ps.size();
+		}
+		PurchaseSummary pursumm = new PurchaseSummary();
+		pursumm.avgPurchase = avg;
+		pursumm.minPurchase = min;
+		pursumm.maxPurchase = max;
+		return pursumm;
 	}
 
 	@Override
@@ -106,7 +139,7 @@ public class PurchasePersistenceServiceImpl implements PurchasePersistenceServic
 		em.getTransaction().begin();
 		List<Purchase> purc = (List<Purchase>)em.createQuery("from Purchase as p where p.product.id = :productID")
 			.setParameter("productID", productID)
-			.getSingleResult();
+			.getResultList();
 		em.getTransaction().commit();
 		
 		if(purc == null) {
