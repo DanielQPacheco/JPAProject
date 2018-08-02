@@ -14,8 +14,12 @@ import cs4347.hibernateProject.ecomm.util.DAOException;
 public class ProductPersistenceServiceImpl implements ProductPersistenceService
 {
 	@PersistenceContext 
-	public EntityManager em; 
-		
+    	private EntityManager em; 
+    
+    	public ProductPersistenceServiceImpl(EntityManager em) {
+        	this.em = em;
+    	}
+    	
 	@Override
 	public void create(Product product) throws SQLException, DAOException
 	{
