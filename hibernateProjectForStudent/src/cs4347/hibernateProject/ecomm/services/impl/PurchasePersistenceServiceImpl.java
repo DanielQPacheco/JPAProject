@@ -15,8 +15,12 @@ import cs4347.hibernateProject.ecomm.util.DAOException;
 public class PurchasePersistenceServiceImpl implements PurchasePersistenceService
 {
 	@PersistenceContext 
-	public EntityManager em; 
-		
+    	private EntityManager em; 
+    
+   	public PurchasePersistenceServiceImpl(EntityManager em) {
+        	this.em = em;
+    	}
+	
 	@Override
 	public void create(Purchase purchase) throws SQLException, DAOException
 	{
