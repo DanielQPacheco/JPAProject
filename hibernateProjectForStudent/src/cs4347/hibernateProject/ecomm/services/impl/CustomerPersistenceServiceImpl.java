@@ -16,8 +16,12 @@ import cs4347.hibernateProject.ecomm.util.DAOException;
 public class CustomerPersistenceServiceImpl implements CustomerPersistenceService
 {
 	@PersistenceContext 
-	public EntityManager em; 
-		
+    	private EntityManager em; 
+    
+    	public CustomerPersistenceServiceImpl(EntityManager em) {
+        	this.em = em;
+    	}
+    
 	/**
 	 */
 	@Override
